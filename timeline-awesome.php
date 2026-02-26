@@ -121,8 +121,15 @@ function timeline_awesome_post_custom_template( $template ) {
 
 add_action( 'after_setup_theme', 'timeline_awesome_crb_load' );
 function timeline_awesome_crb_load() {
-	require_once( 'vendor/autoload.php' );
-	\Carbon_Fields\Carbon_Fields::boot();
+	$autoload_file = plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
+
+	if ( file_exists( $autoload_file ) ) {
+		require_once $autoload_file;
+	}
+
+	if ( class_exists( '\\Carbon_Fields\\Carbon_Fields' ) ) {
+		\Carbon_Fields\Carbon_Fields::boot();
+	}
 }
 
 /**
